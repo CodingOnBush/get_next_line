@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:08:17 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/27 10:21:36 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/27 15:28:33 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,132 +29,6 @@ void	ft_lstadd(t_list **lst, t_list *new)
 	}
 }
 
-t_list	*ft_lstnew(char *str, int len)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->str = ft_strdup(str, len);
-	if (!new->str)
-	{
-		free(new);
-		return (NULL);
-	}
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_putlst(t_list *lst)
-{
-	if (!lst)
-		return ;
-	
-	ft_putstr("list : ");
-	while (lst)
-	{
-		ft_putstr((char *)lst->str);
-		ft_putstr("---->");
-		lst = lst->next;
-	}
-	ft_putstr("NULL");
-	ft_putchar('\n');
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(char *s, int len)
-{
-	char	*out;
-	int		i;
-
-	out = malloc(sizeof(char) * (len + 1));
-	if (!out)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		out[i] = s[i];
-		i++;
-	}
-	out[i] = '\0';
-	return (out);
-}
-
-// char	*ft_strdup(char *s, int len)
-// {
-// 	char	*res;
-// 	int		i;
-
-// 	if (!s)
-// 		return (NULL);
-// 	if (ft_strchr(s, '\n') == 0)
-// 		len++;
-// 	res = (char *)malloc(sizeof(char) * (len + 1));
-// 	if (!res)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		res[i] = s[i];
-// 		i++;
-// 	}
-// 	if (s[i] == '\n')
-// 	{
-// 		res[i] = '\n';
-// 		res[i + 1] = '\0';
-// 	}
-// 	else
-// 		res[i] = '\0';
-// 	return (res);
-// }
-
-char	*ft_remainder_strdup(const char *s, int len)
-{
-	char	*res;
-	int		i;
-
-	res = (char *)malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (i < len && s[i])
-	{
-		res[i] = s[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
-char	*ft_strcdup(const char *s, int len, int c)
-{
-	char	*res;
-	int		i;
-
-	res = (char *)malloc(sizeof(char) * (len + 2));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (i < len && s[i] != c)
-	{
-		res[i] = s[i];
-		i++;
-	}
-	res[i] = c;
-	res[i + 1] = '\0';
-	return (res);
-}
-
 char	*ft_strcat(char *dst, const char *src)
 {
 	char	*ptr;
@@ -170,7 +44,8 @@ char	*ft_strcat(char *dst, const char *src)
 		ptr++;
 		i++;
 	}
-	dst[i] = '\0';
+	dst[i] = *ptr;
+	dst[i + 1] = '\0';
 	return (dst);
 }
 int	ft_get_len(t_list *lst)
@@ -229,28 +104,74 @@ int	ft_get_index(char *s, int c)
 	return (0);
 }
 
-t_list	*ft_get_remainder(t_list *lst)
+char	*ft_remove_before(char *str, char c)
 {
-	t_list	*new;
-	char	*new_str;
-	int		len;
-	int		npos;
-	
+	char	*out;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (str[i] == '\0')
+		return (str);
+	out = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	if (!out)
+		return (NULL);
+	i++;
+	j = 0;
+	while (str[i])
+	{
+		out[j] = str[i];
+		i++;
+		j++;
+	}
+	out[j] = '\0';
+	free(str);
+	return (out);
+}
+
+void	*ft_update_lst(t_list **lst)
+{
+	// t_list	*new;
+	// char	*new_str;
+	// int		len;
+	// int		npos;
+	// int		i;
+	t_list	*save;
+	char	*temp;
+
 	if (!lst)
 		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	npos = ft_get_index(lst->str, '\n');
-	len = ft_strlen(lst->str) - npos - 1;
-	if (len == 0)
-		return (NULL);
-	new_str = ft_strdup(&(lst->str)[npos], len);
-	if (!new_str)
-		return (NULL);
-	free(lst->str);
-	new = ft_lstnew(new_str, ft_strlen(new_str));
-	return (new);
+	while (*lst)
+	{
+		if (ft_strchr(*(lst)->str, '\n'))
+		{
+			temp = lst->str;
+			*lst->str = ft_remove_before(lst->str, '\n');
+			if (lst->str == NULL)
+			{
+				lst->str = temp;
+				return (save);
+			}
+			return (save);
+		}
+		lst = lst->next;	
+	}
+	// npos = ft_get_index(lst->str, '\n');
+	// len = ft_strlen(lst->str) - npos - 1;
+	// if (len < 1)
+	// 	return (NULL);
+	// new_str = ft_strdup(&(lst->str)[npos], len);
+	// if (!new_str)
+	// 	return (NULL);
+	// free(lst->str);
+	// new = ft_lstnew(new_str, ft_strlen(new_str));
+	ft_putlst(save);
+	return (save);
 }
+
+
 
 // t_list	*ft_create_list(t_list *lst, int fd)
 // {
@@ -288,16 +209,23 @@ et copie ce morceau de ligne dans cette chaine
 puis retourne une nouvelle liste avec cette chaine
 */
 
-void ft_create_list(t_list **lst, int fd)
+
+
+void ft_create_list(t_elem **lst, int fd)
 {
 	char	*buff;
 	int		size;
 	
+	if (!lst)
+	{
+		if (ft_lstchr(*lst, '\n'))
+			return ;
+	}
 	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buff || (size = read(fd, buff, BUFFER_SIZE)) <= 0)
 		return ;
 	if (!(*lst))
-		*lst = ft_lstnew(buff, size);
+		*lst = ft_lstnew(buff, size); 
 	else
 		ft_lstadd(lst, ft_lstnew(buff, size));
 	while ((size = read(fd, buff, BUFFER_SIZE)) > 0 && ft_strchr(buff, '\n') == 0)
@@ -308,9 +236,9 @@ void ft_create_list(t_list **lst, int fd)
 	free(buff);
 }
 
-void	ft_free_lst(t_list *lst)
+void	ft_free_lst(t_elem *lst)
 {
-	t_list	*temp;
+	t_elem	*temp;
 
 	while (lst)
 	{
@@ -323,17 +251,22 @@ void	ft_free_lst(t_list *lst)
 
 char    *get_next_line(int fd)
 {
-	static t_list	*lst;
+	static t_elem	*lst;
 	char			*line;
 	
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	ft_create_list(&lst, fd);
-	if (lst == NULL)
+	if (!lst)
+		ft_create_list(&lst, fd);
+	if (!lst)
 		return (NULL);
-	line = ft_create_str(lst);
-	lst = ft_get_remainder(lst);
 	ft_putlst(lst);
+	// line = ft_create_str(lst);
+	// printf("line[0] : %d\n", line[0]);
+	// printf("line[1] : %d\n", line[1]);
+	// ft_update_lst(lst);
+	// ft_putlst(lst);
+	line = "salut\n";
 	return (line);
 }
 
@@ -365,6 +298,18 @@ int	main(void)
 
 	line = get_next_line(fd);
 	printf("line : %s\n", line);
+
+	// line = get_next_line(fd);
+	// printf("line : %s\n", line);
+
+	// line = get_next_line(fd);
+	// printf("line : %s\n", line);
+
+	// line = get_next_line(fd);
+	// printf("line : %s\n", line);	
+
+	// line = get_next_line(fd);
+	// printf("line : %s\n", line);
 	
 	// line = "abcd\n";
 	// printf("line : %s\n", line);

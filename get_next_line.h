@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:04:12 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/25 17:16:30 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/27 09:05:25 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>//delete
-# define BUFFER_SIZE 2
+# define BUFFER_SIZE 1
 
 typedef struct s_list
 {

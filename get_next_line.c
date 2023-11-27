@@ -3,71 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:08:17 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/27 15:28:33 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/27 21:59:47 by allblue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_lstadd(t_list **lst, t_list *new)
+char	*ft_create_str(t_node *lst)
 {
-	t_list	*temp;
-
-	if (!lst || !new)
-		return ;
-	if (!*lst)
-		*lst = new;
-	else
-	{
-		temp = *lst;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
-	}
-}
-
-char	*ft_strcat(char *dst, const char *src)
-{
-	char	*ptr;
-	int		i;
-
-	i = 0;
-	ptr = (char *)src;
-	while (dst[i])
-		i++;
-	while (*ptr)
-	{
-		dst[i] = *ptr;
-		ptr++;
-		i++;
-	}
-	dst[i] = *ptr;
-	dst[i + 1] = '\0';
-	return (dst);
-}
-int	ft_get_len(t_list *lst)
-{
-	int		len;
-	t_list	*l;
-
-	if (!lst)
-		return (0);
-	len = 0;
-	l = lst;
-	while (l)
-	{
-		len += ft_strlen(l->str);
-		l = l->next;
-	}
-	return (len);
-}
-
-char	*ft_create_str(t_list *lst)
-{
-	t_list	*l;
+	t_node	*l;
 	char	*out;
 	int		len;
 	
@@ -131,92 +78,29 @@ char	*ft_remove_before(char *str, char c)
 	return (out);
 }
 
-void	*ft_update_lst(t_list **lst)
+void	*ft_update_lst(t_node **lst)
 {
-	// t_list	*new;
-	// char	*new_str;
-	// int		len;
-	// int		npos;
-	// int		i;
-	t_list	*save;
-	char	*temp;
+	t_node	*temp;
+	int		i;
 
 	if (!lst)
 		return (NULL);
-	while (*lst)
+	temp = *lst;
+	i = 0;
+	while (temp)
 	{
-		if (ft_strchr(*(lst)->str, '\n'))
-		{
-			temp = lst->str;
-			*lst->str = ft_remove_before(lst->str, '\n');
-			if (lst->str == NULL)
-			{
-				lst->str = temp;
-				return (save);
-			}
-			return (save);
-		}
-		lst = lst->next;	
+		temp->str = ft_remove_before(temp->str, '\n');
+		temp = temp->next;
 	}
-	// npos = ft_get_index(lst->str, '\n');
-	// len = ft_strlen(lst->str) - npos - 1;
-	// if (len < 1)
-	// 	return (NULL);
-	// new_str = ft_strdup(&(lst->str)[npos], len);
-	// if (!new_str)
-	// 	return (NULL);
-	// free(lst->str);
-	// new = ft_lstnew(new_str, ft_strlen(new_str));
-	ft_putlst(save);
-	return (save);
+	return (NULL);
 }
 
-
-
-// t_list	*ft_create_list(t_list *lst, int fd)
-// {
-// 	t_list	*new;
-// 	char	*buff;
-// 	int		size;
-	
-// 	new = lst;
-// 	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-// 	if (!buff || (size = read(fd, buff, BUFFER_SIZE)) <= 0)
-// 		return (NULL);
-// 	new = ft_lstnew(buff, size);
-// 	while ((size = read(fd, buff, BUFFER_SIZE)) > 0 && ft_strchr(buff, '\n') == 0)
-// 		ft_lstadd(&new, ft_lstnew(buff, size));
-// 	ft_lstadd(&new, ft_lstnew(buff, size));
-// 	return (new);
-// }
-
-/*
-ft_create_list(t_list *lst)
-essaye de remplir la liste avec tous les morceaux de ligne qu'il trouve
-en utilisant read et BUFFER_SIZE
-
-char *ft_create_str(t_list *lst)
-retourne NULL si lst est NULL
-sinon, alloue une chaine de caractere de la taille totale de la liste
-et copie tous les morceaux de ligne dans cette chaine
-puis retourne la chaine
-
-ft_get_remainder(t_list *lst)
-retourne NULL si lst est NULL
-sinon, alloue une chaine de caractere de la taille du dernier morceau de ligne
-qui commence par \n
-et copie ce morceau de ligne dans cette chaine
-puis retourne une nouvelle liste avec cette chaine
-*/
-
-
-
-void ft_create_list(t_elem **lst, int fd)
+void ft_create_list(t_node **lst, int fd)
 {
 	char	*buff;
 	int		size;
 	
-	if (!lst)
+	if (*lst != NULL)
 	{
 		if (ft_lstchr(*lst, '\n'))
 			return ;
@@ -232,13 +116,12 @@ void ft_create_list(t_elem **lst, int fd)
 		ft_lstadd(lst, ft_lstnew(buff, size));
 	if (size > 0)
 		ft_lstadd(lst, ft_lstnew(buff, size));
-	// ft_putlst(*lst);
 	free(buff);
 }
 
-void	ft_free_lst(t_elem *lst)
+void	ft_free_lst(t_node *lst)
 {
-	t_elem	*temp;
+	t_node	*temp;
 
 	while (lst)
 	{
@@ -251,7 +134,7 @@ void	ft_free_lst(t_elem *lst)
 
 char    *get_next_line(int fd)
 {
-	static t_elem	*lst;
+	static t_node	*lst;
 	char			*line;
 	
 	if (fd < 0 || BUFFER_SIZE < 1)
@@ -260,17 +143,10 @@ char    *get_next_line(int fd)
 		ft_create_list(&lst, fd);
 	if (!lst)
 		return (NULL);
-	ft_putlst(lst);
-	// line = ft_create_str(lst);
-	// printf("line[0] : %d\n", line[0]);
-	// printf("line[1] : %d\n", line[1]);
-	// ft_update_lst(lst);
-	// ft_putlst(lst);
-	line = "salut\n";
+	// TODO : create string from list
+	// TODO : update list
 	return (line);
 }
-
-
 
 int	main(void)
 {

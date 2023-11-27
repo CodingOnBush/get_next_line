@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:04:12 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/27 15:25:17 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/27 21:56:07 by allblue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@
 # include <stdio.h>//delete
 # define BUFFER_SIZE 1000
 
-typedef struct s_elem
+typedef struct s_node
 {
 	char			*str;
-	struct s_elem	*next;
-}					t_elem;
+	struct s_node	*next;
+}					t_node;
 
-int		ft_get_len(t_elem *lst);
-t_elem	*ft_lstnew(char *buff, int size);
-void	ft_putlst(t_elem *lst);
-int		ft_putstr(char *str);
+int		ft_get_len(t_node *lst);
+void	ft_lstappend(t_node **lst, char *buff, int size);
+int		ft_lstchr(t_node *lst, int c);
+t_node	*ft_lstnew(char *buff, int size);
+void	ft_putchar(char c);//delete
+void	ft_putlst(t_node *lst);//delete
+int		ft_putstr(char *str);//delete
+char	*ft_strcat(char *dst, const char *src);
+char	*ft_strchr(char *s, int c);
 char	*ft_strdup(char *s, int len);
 int		ft_strlen(char *str);
-
 char    *get_next_line(int fd);
-char	*ft_strchr(char *s, int c);
-void	ft_putchar(char c);
-char	*ft_strdup(char *s, int len);
-
 
 #endif

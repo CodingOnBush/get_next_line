@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-void	ft_putlst(t_elem *lst)
+void	ft_putlst(t_node *lst)
 {
 	ft_putstr("list : ");
 	if (!lst)

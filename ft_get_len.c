@@ -1,9 +1,9 @@
 #include "get_next_line.h"
 
-int	ft_get_len(t_elem *lst)
+int	ft_get_len(t_node *lst)
 {
 	int		len;
-	t_elem	*l;
+	t_node	*l;
 
 	if (!lst)
 		return (0);

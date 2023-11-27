@@ -1,11 +1,11 @@
 #include "get_next_line.h"
 
-t_elem	*ft_lstnew(char *buff, int size)
+t_node	*ft_lstnew(char *buff, int size)
 {
-	t_elem	*new;
+	t_node	*new;
 	char	*s;
 
-	new = (t_elem *)malloc(sizeof(t_elem));
+	new = (t_node *)malloc(sizeof(t_node));
 	if (!new)
 		return (NULL);
 	s = ft_strdup(buff, size);

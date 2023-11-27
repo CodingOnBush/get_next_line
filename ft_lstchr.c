@@ -1,8 +1,8 @@
 #include "get_next_line.h"
 
-int	ft_lstchr(t_elem *lst, int c)
+int	ft_lstchr(t_node *lst, int c)
 {
-	t_elem	*l;
+	t_node	*l;
 	int		i;
 
 	if (!lst)

@@ -6,57 +6,11 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:08:17 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/28 12:32:34 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:03:56 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_remove_before(char *str, char c)
-{
-	char	*out;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	if (str[i] == '\0')
-		return (str);
-	out = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!out)
-		return (NULL);
-	i++;
-	j = 0;
-	while (str[i])
-	{
-		out[j] = str[i];
-		i++;
-		j++;
-	}
-	out[j] = '\0';
-	free(str);
-	return (out);
-}
-
-void	*ft_update_lst(t_node **lst)
-{
-	t_node	*temp;
-	int		i;
-
-	if (!lst)
-		return (NULL);
-	temp = *lst;
-	i = 0;
-	while (temp)
-	{
-		temp->str = ft_remove_before(temp->str, '\n');
-		if (temp->str == NULL)
-			return (NULL);
-		temp = temp->next;
-	}
-	return (NULL);
-}
 
 void ft_create_list(t_node **lst, int fd)
 {

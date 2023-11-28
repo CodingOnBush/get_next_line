@@ -1,5 +1,8 @@
 abc1
 def2
+[\n]
+
+
 ghi3
 jkl4
-salut5
+salut5[\0]

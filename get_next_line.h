@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:04:12 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/28 12:35:37 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:06:24 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_node	*ft_lstnew(char *buff, int size);
 void	ft_putchar(char c);//delete
 void	ft_putlst(t_node *lst);//delete
 int		ft_putstr(char *str);//delete
+char	*ft_remove_before(char *str, char c);
 char	*ft_strcat(char *dst, const char *src);
 char	*ft_strchr(char *s, int c);
 char	*ft_strdup(char *s, int len);

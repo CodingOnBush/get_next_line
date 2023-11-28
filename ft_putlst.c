@@ -14,5 +14,5 @@ void	ft_putlst(t_node *lst)
 		ft_putstr("-->");
 		lst = lst->next;
 	}
-	ft_putstr("NULL\n");
+	printf("NULL\n");
 }

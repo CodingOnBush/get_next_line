@@ -1,5 +1,5 @@
-bonjour je suis une phrase qui va finir par un saut a la ligne [1]
-je ne peux pas utiliser les accents parce que je suis en qwerty [2]
-mais je peux finir mes phrases par un saut de ligne [3]
-je vais specifier les fom de phrase par leur numero de ligne [4]
-pour etre sur que j'ai bien recupere toute une ligne m'arretant sur le \n [5]
+a
+
+a
+
+a

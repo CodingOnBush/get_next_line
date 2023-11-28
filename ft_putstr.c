@@ -6,7 +6,12 @@ int	ft_putstr(char *str)
 
 	i = 0;
 	while (str[i])
+	{
+		if (str[i] == '\n')
+			write(1, "\\n", 2);
+		else
+			write(1, &str[i], 1);
 		i++;
-	write(1, str, i);
+	}
 	return (i);
 }

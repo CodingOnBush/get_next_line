@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:04:12 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/28 13:06:24 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/28 19:41:06 by allblue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>//delete
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 2000
 
 typedef struct s_node
 {
@@ -37,6 +37,7 @@ char	*ft_strcat(char *dst, const char *src);
 char	*ft_strchr(char *s, int c);
 char	*ft_strdup(char *s, int len);
 int		ft_strlen(char *str);
+void	ft_update_lst(t_node **lst);
 char    *get_next_line(int fd);
 
 #endif

@@ -9,12 +9,14 @@ int	ft_get_len(t_node *lst)
 		return (0);
 	len = 0;
 	l = lst;
-	while (l)
+	while (l && ft_strchr(l->str, '\n') == 0)
 	{
 		len += ft_strlen(l->str);
 		l = l->next;
 	}
-	return (len);
+	if (l)
+		len += ft_strchr(l->str, '\n') - l->str;
+	return (len + 1);
 }
 
 // int	main(void)

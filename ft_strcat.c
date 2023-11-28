@@ -9,13 +9,14 @@ char	*ft_strcat(char *dst, const char *src)
 	s = (char *)src;
 	while (dst[i])
 		i++;
-	while (*s)
+	while (*s && *s != '\n')
 	{
 		dst[i] = *s;
 		s++;
 		i++;
 	}
 	dst[i] = *s;
+	dst[i + 1] = '\0';
 	return (dst);
 }
 

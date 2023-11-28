@@ -11,7 +11,7 @@ char	*ft_strdup(char *s, int len)
 	if (!out)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i <= len)
 	{
 		out[i] = s[i];
 		i++;

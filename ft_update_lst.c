@@ -11,30 +11,43 @@ void	ft_update_lst(t_node **lst)
 	temp = *lst;
 	while (temp)
 	{
-		// printf("temp->str : %s\n", temp->str);
 		if (ft_strchr(temp->str, '\n'))
 		{
 			s = ft_remove_before(temp->str, '\n');
-			temp->str = s;
-			*lst = temp;
-			return ;
+			if (!s)
+				return ;
+			// ft_putstr("s : ");
+			// ft_putstr(s);
+			// printf("\n");
+			if (*s != '\0')
+			{
+				temp->str = s;
+				// ft_putstr("temp->str : ");
+				// ft_putstr(temp->str);
+				// printf("\n");
+				*lst = temp;
+				// ft_putlst(*lst);
+				return ;
+			}
 		}
 		temp = temp->next;
 	}
 }
 
-int	main(void)
-{
-	t_node	*lst;
-	
-	lst = NULL;
-	ft_lstappend(&lst, "abcd", 4);
-	ft_lstappend(&lst, "efgh", 4);
-	ft_lstappend(&lst, "i\nkl", 4);
-	ft_lstappend(&lst, "mnop", 4);
-	ft_lstappend(&lst, "qrst", 4);
-	ft_putlst(lst);
-	ft_update_lst(&lst);
-	ft_putlst(lst);
-	return (0);
-}
+// int	main(void)
+// {
+// 	t_node	*lst;
+
+// 	lst = NULL;
+// 	ft_lstappend(&lst, "a\n", 4);
+// 	ft_lstappend(&lst, "\n\n", 4);
+// 	ft_lstappend(&lst, "a", 4);
+// 	ft_putlst(lst);
+// 	ft_update_lst(&lst);
+// 	ft_putlst(lst);
+// 	ft_update_lst(&lst);
+// 	ft_putlst(lst);
+// 	ft_update_lst(&lst);
+// 	ft_putlst(lst);
+// 	return (0);
+// }

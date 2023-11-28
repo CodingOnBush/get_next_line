@@ -5,14 +5,14 @@ char	*ft_remove_before(char *str, char c)
 	char	*out;
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
 	if (!str)
 		return (NULL);
 	while (str[i] && str[i] != c)
 		i++;
-	if (str[i] == '\0')
-		return (str);
+	len = ft_strlen(str) - i;
 	out = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!out)
 		return (NULL);
@@ -25,7 +25,6 @@ char	*ft_remove_before(char *str, char c)
 		j++;
 	}
 	out[j] = '\0';
-	free(str);
 	return (out);
 }
 
@@ -39,20 +38,20 @@ char	*ft_remove_before(char *str, char c)
 // 	str = malloc(sizeof(char) * 5);
 // 	if (!str)
 // 		return (0);
-// 	str[0] = 'b';
-// 	str[1] = 'a';
-// 	str[2] = 'c';
+// 	str[0] = 'd';
+// 	str[1] = '\0';
+// 	str[2] = 'd';
 // 	str[3] = 'd';
 // 	str[4] = '\0';
 // 	printf("str : %s\n", str);
-// 	out = ft_remove_before(NULL, c);
+// 	out = ft_remove_before(str, c);
 // 	printf("out : %s\n", out);
 // 	if (out)
 // 	{
 // 		printf("out[0] : %c\n", out[0]);
 // 		printf("out[1] : %c\n", out[1]);
 // 		printf("out[2] : %c\n", out[2]);
-// 		printf("out[3] : %c\n", out[3]);
+// 		printf("out[3] : %d\n", out[3]);
 // 		return (0);
 // 	}
 

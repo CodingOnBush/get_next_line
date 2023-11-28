@@ -1,8 +1,5 @@
-abc1
-def2
+1abc1[\n]
+2def2[\n]
+3ghi3[\n]
+4jkl4[\n]
 [\n]
-
-
-ghi3
-jkl4
-salut5[\0]

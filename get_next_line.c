@@ -3,53 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
+/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:08:17 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/27 21:59:47 by allblue          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:32:34 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_create_str(t_node *lst)
-{
-	t_node	*l;
-	char	*out;
-	int		len;
-	
-	if (!lst)
-		return (NULL);
-	len = ft_get_len(lst);
-	if (len == 0)
-		return (NULL);
-	out = (char *)malloc(len + 1);
-	if (!out)
-		return (NULL);
-	*out = '\0';
-	while (lst)
-	{
-		out = ft_strcat(out, lst->str);
-		lst = lst->next;
-	}
-	return (out);
-}
-
-int	ft_get_index(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	if (s[i] == '\0')
-		return (i);
-	return (0);
-}
 
 char	*ft_remove_before(char *str, char c)
 {
@@ -90,6 +51,8 @@ void	*ft_update_lst(t_node **lst)
 	while (temp)
 	{
 		temp->str = ft_remove_before(temp->str, '\n');
+		if (temp->str == NULL)
+			return (NULL);
 		temp = temp->next;
 	}
 	return (NULL);
@@ -134,15 +97,13 @@ void	ft_free_lst(t_node *lst)
 
 char    *get_next_line(int fd)
 {
-	static t_node	*lst;
+	static t_node	*lst = NULL;
 	char			*line;
 	
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	if (!lst)
 		ft_create_list(&lst, fd);
-	if (!lst)
-		return (NULL);
 	// TODO : create string from list
 	// TODO : update list
 	return (line);

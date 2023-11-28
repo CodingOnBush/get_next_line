@@ -3,6 +3,7 @@
 void	ft_lstappend(t_node **lst, char *buff, int size)
 {
 	t_node	*new;
+	t_node *temp;
 
 	new = ft_lstnew(buff, size);
 	if (!new)
@@ -11,9 +12,10 @@ void	ft_lstappend(t_node **lst, char *buff, int size)
 		*lst = new;
 	else
 	{
-		while ((*lst)->next != NULL)
-			*lst = (*lst)->next;
-		(*lst)->next = new;
+		temp = *lst;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
 	}
 }
 
@@ -28,6 +30,8 @@ void	ft_lstappend(t_node **lst, char *buff, int size)
 // 	ft_lstappend(&lst, buff, 6);
 // 	ft_putlst(lst);
 // 	buff = "ca va";
+// 	ft_lstappend(&lst, buff, 6);
+// 	buff = "salut";
 // 	ft_lstappend(&lst, buff, 6);
 // 	ft_putlst(lst);
 // 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
+/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:04:12 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/27 21:56:07 by allblue          ###   ########.fr       */
+/*   Updated: 2023/11/28 12:35:37 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>//delete
-# define BUFFER_SIZE 1000
+# define BUFFER_SIZE 1
 
 typedef struct s_node
 {
@@ -24,6 +24,7 @@ typedef struct s_node
 	struct s_node	*next;
 }					t_node;
 
+char	*ft_create_str(t_node *lst);
 int		ft_get_len(t_node *lst);
 void	ft_lstappend(t_node **lst, char *buff, int size);
 int		ft_lstchr(t_node *lst, int c);

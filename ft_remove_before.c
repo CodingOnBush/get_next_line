@@ -5,14 +5,19 @@ char	*ft_remove_before(char *str, char c)
 	char	*out;
 	int		i;
 	int		j;
-	int		len;
+	// int		len;
 
 	i = 0;
 	if (!str)
 		return (NULL);
+	// ft_putstr("str = ");
+	// ft_putstr(str);
+	// printf("\n");
 	while (str[i] && str[i] != c)
 		i++;
-	len = ft_strlen(str) - i;
+	// len = ft_strlen(str) - i;
+	// ft_putstr("len = ");
+	// printf("%d\n", len);
 	out = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!out)
 		return (NULL);

@@ -8,7 +8,7 @@ int	ft_putstr(char *str)
 	while (str[i])
 	{
 		if (str[i] == '\n')
-			write(1, "\\n", 2);
+			write(1, "#", 1);
 		else
 			write(1, &str[i], 1);
 		i++;

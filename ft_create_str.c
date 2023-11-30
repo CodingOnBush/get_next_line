@@ -2,7 +2,6 @@
 
 char	*ft_create_str(t_node *lst)
 {
-	t_node	*l;
 	char	*out;
 	int		len;
 	

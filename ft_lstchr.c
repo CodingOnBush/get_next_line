@@ -7,6 +7,7 @@ int	ft_lstchr(t_node *lst, int c)
 
 	if (!lst)
 		return (0);
+	// ft_putlst(lst);
 	l = lst;
 	while (l)
 	{

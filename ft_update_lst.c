@@ -4,7 +4,7 @@ void	ft_update_lst(t_node **lst)
 {
 	t_node	*temp;
 	char	*s;
-	int		i;
+	// int		i;
 
 	if (!lst)
 		return ;
@@ -13,25 +13,25 @@ void	ft_update_lst(t_node **lst)
 	{
 		if (ft_strchr(temp->str, '\n'))
 		{
+			// ft_putstr("temp->str = ");
+			// ft_putstr(temp->str);
+			// printf("\n");
 			s = ft_remove_before(temp->str, '\n');
 			if (!s)
 				return ;
-			// ft_putstr("s : ");
+			// ft_putstr("s = ");
 			// ft_putstr(s);
 			// printf("\n");
 			if (*s != '\0')
 			{
 				temp->str = s;
-				// ft_putstr("temp->str : ");
-				// ft_putstr(temp->str);
-				// printf("\n");
 				*lst = temp;
-				// ft_putlst(*lst);
 				return ;
 			}
 		}
 		temp = temp->next;
 	}
+	*lst = temp;
 }
 
 // int	main(void)

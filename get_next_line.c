@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:08:17 by momrane           #+#    #+#             */
-/*   Updated: 2023/11/30 12:25:42 by momrane          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:36:40 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ char    *get_next_line(int fd)
 {
 	static t_node	*lst = NULL;
 	char			*line;
+	int				s;
 	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (ft_createlst(fd, &lst) < 0)
+	s = ft_createlst(fd, &lst);
+	if (s < 0)
 	{
-		ft_freelst(&lst);
+		// ft_freelst(&lst);
 		return (NULL);
 	}
 	if (!lst)
@@ -36,17 +38,16 @@ int	main(void)
 {
 	int		fd;
 	char	*line;
-	int		i;
 	
-	fd = open("./bible.txt", O_RDONLY);
-	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	fd = open("./file.txt", O_RDONLY);
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		// printf("line[0] : %d\n", line[0]);
 		ft_putstr("line : ");
 		ft_putstr(line);
 		putchar('\n');
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (0);

@@ -18,6 +18,8 @@ char	*ft_remove_before(char *str, char c)
 	// len = ft_strlen(str) - i;
 	// ft_putstr("len = ");
 	// printf("%d\n", len);
+	// printf("str = %s\n", str);
+	// printf("ft_strlen(str) - i + 1 = %d\n", ft_strlen(str) - i + 1);
 	out = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!out)
 		return (NULL);
@@ -30,6 +32,7 @@ char	*ft_remove_before(char *str, char c)
 		j++;
 	}
 	out[j] = '\0';
+	free(str);
 	return (out);
 }
 

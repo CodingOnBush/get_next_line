@@ -17,6 +17,7 @@ void	ft_lstappend(t_node **lst, char *buff, int size)
 			temp = temp->next;
 		temp->next = new;
 	}
+	// free(buff);
 }
 
 // int	main(void)

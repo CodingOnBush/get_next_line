@@ -2,29 +2,34 @@
 
 char	*ft_create_str(t_node *lst)
 {
-	char	*out;
+	t_node	*current;
+	char	*new;
+	char	*str;
 	int		len;
 	
 	len = ft_get_len(lst);
 	if (len == 0)
 		return (NULL);
-	out = (char *)malloc(len + 1);
-	if (!out)
+	new = (char *)malloc((len + 1) * sizeof(char));
+	if (!new)
 		return (NULL);
-	*out = '\0';
-	while (lst != NULL && ft_strchr(lst->str, '\n') == NULL)
+	current = lst;
+	while (current)
 	{
-		out = ft_strcat(out, lst->str);
-		lst = lst->next;
+		str = current->str;
+		while (*str != '\n' && *str)
+			*new++ = *str++;
+		current = current->next;
 	}
-	if (lst != NULL && ft_strchr(lst->str, '\n') != NULL)
-		out = ft_strcat(out, lst->str);
-	return (out);
+	if (*str == '\n')
+		*new++ = *str++;
+	*new = '\0';
+	return (new - len);
 }
 
 // int	main(void)
 // {
-// 	t_node	*lst;
+// 	t_node	*lst = NULL;
 // 	char	*str;
 // 	// char	*buff;
 
@@ -32,7 +37,7 @@ char	*ft_create_str(t_node *lst)
 // 	// if (!buff)
 // 		// return (0);
 // 	// buff = "Hello";
-// 	lst = ft_lstnew("a\n\na\n\na", 1);
+// 	// lst = ft_lstnew("a\n\na\n\na", 1);
 // 	// printf("lst->str : %s\n", lst->str);
 // 	// buff = " World";
 // 	// ft_lstappend(&lst, "\n", 6);
@@ -40,14 +45,35 @@ char	*ft_create_str(t_node *lst)
 // 	// ft_lstappend(&lst, "A", 2);
 // 	// ft_putlst(lst);
 // 	// ft_lstappend(&lst, " bonjourdasa\n", 25);
+// 	// ft_putlst(lst);
+// 	char *str1;
+// 	// char *str2;
+
+// 	str1 = ft_strdup("\0", 1);
+// 	// str2 = ft_strdup("de\n", 3);
+// 	ft_lstappend(&lst, str1);
+// 	// ft_lstappend(&lst, str2);
 // 	ft_putlst(lst);
 // 	str = ft_create_str(lst);
-// 	printf("hello\n");
-// 	if (*str == 0)
+// 	// printf("hello\n");
+// 	if (!str)
+// 	{
+// 		printf("str is NULL\n");
 // 		return (0);
+// 	}
 // 	// ft_putstr(str);
 // 	printf("str[0] : %c\n", str[0]);
-// 	printf("str[1] : %d\n", str[1]);
+// 	printf("str[1] : %c\n", str[1]);
+// 	printf("str[2] : %c\n", str[2]);
+// 	printf("str[3] : %c\n", str[3]);
+// 	printf("str[4] : %c\n", str[4]);
+// 	printf("str[5] : %c\n", str[5]);
+// 	printf("str[6] : %d\n", str[6]);
+// 	printf("str[7] : %d\n", str[7]);
+// 	printf("str[8] : %c\n", str[8]);
+// 	printf("str[9] : %c\n", str[9]);
+// 	printf("str[10] : %c\n", str[10]);
+// 	printf("str[11] : %c\n", str[11]);
 // 	printf("str[19] : %c\n", str[19]);
 // 	printf("str[20] : %c\n", str[20]);
 // 	printf("str[21] : %c\n", str[21]);

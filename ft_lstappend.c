@@ -1,23 +1,24 @@
 #include "get_next_line.h"
 
-void	ft_lstappend(t_node **lst, char *buff, int size)
+void	ft_lstappend(t_node **lst, char *buff)
 {
-	t_node	*new;
-	t_node *temp;
+    t_node *newNode;
+    t_node *current;
 
-	new = ft_lstnew(buff, size);
-	if (!new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		temp = *lst;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
-	}
-	// free(buff);
+    newNode = (t_node *)malloc(sizeof(t_node));
+    if (!newNode)
+        return ;
+    newNode->str = buff;
+    newNode->next = NULL;
+    if (*lst == NULL)
+    {
+        *lst = newNode;
+        return ;
+    }
+    current = *lst;
+    while (current->next != NULL)
+        current = current->next;
+    current->next = newNode;
 }
 
 // int	main(void)

@@ -2,17 +2,16 @@
 
 void	ft_putlst(t_node *lst)
 {
+	t_node	*current;
+
 	ft_putstr("list : ");
-	if (!lst)
+	current = lst;
+	while (current != NULL)
 	{
-		ft_putstr("NULL\n");
-		return ;
-	}
-	while (lst)
-	{
-		ft_putstr(lst->str);
+		ft_putstr(current->str);
 		ft_putstr("-->");
-		lst = lst->next;
+		current = current->next;
 	}
-	printf("NULL\n");
+	ft_putstr("NULL");
+	ft_putchar('\n');
 }

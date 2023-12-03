@@ -2,16 +2,18 @@
 
 void	ft_freelst(t_node **lst)
 {
-	t_node	*temp;
-	t_node	*next;
+	t_node	*current;
+	t_node *next;
 
-	temp = *lst;
-	while (temp)
+	if (*lst == NULL)
+        return;
+    current = *lst;
+    while (current != NULL)
 	{
-		next = temp->next;
-		free(temp->str);
-		free(temp);
-		temp = next;
-	}
-	*lst = NULL;
+        next = current->next;
+        free(current->str);
+		free(current);
+        current = next;
+    }
+    *lst = NULL;
 }

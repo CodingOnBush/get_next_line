@@ -2,21 +2,25 @@
 
 int	ft_get_len(t_node *lst)
 {
+	t_node	*curr;
+	char	*str;
 	int		len;
-	t_node	*l;
 
-	if (!lst)
-		return (0);
+	curr = lst;
 	len = 0;
-	l = lst;
-	while (l && ft_strchr(l->str, '\n') == 0)
+	while (curr)
 	{
-		len += ft_strlen(l->str);
-		l = l->next;
+		str = curr->str;
+		while (*str != '\n' && *str)
+		{
+			len++;
+			str++;
+		}
+		if (*str == '\n')
+			return (len + 1);
+		curr = curr->next;
 	}
-	if (l)
-		len += ft_strchr(l->str, '\n') - l->str;
-	return (len + 1);
+	return (len);
 }
 
 // int	main(void)

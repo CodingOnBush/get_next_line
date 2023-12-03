@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char	*ft_strcat(char *dst, const char *src)
+char	*ft_strcat(char *dst, char *src)
 {
 	char	*s;
 	int		i;
@@ -17,6 +17,7 @@ char	*ft_strcat(char *dst, const char *src)
 	}
 	dst[i] = *s;
 	dst[i + 1] = '\0';
+	// free(src);
 	return (dst);
 }
 

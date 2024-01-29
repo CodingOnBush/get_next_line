@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:56:42 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/29 11:12:54 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/29 12:00:14 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 char	*ft_substr(char *str, int start, int len)
 {
-	char	*ptr;
+	char	*dup;
 	int		i;
 
 	i = 0;
 	if (!str)
 		return (NULL);
 	if (start > ft_strlen(str))
-		return (ft_strdup(""));
-	ptr = (char *)malloc(sizeof(char) * (len + 1));
-	if (!ptr)
+		return (NULL);
+	dup = (char *)malloc(sizeof(char) * (len + 1));
+	if (!dup)
 		return (NULL);
 	while (i < len && str[start])
-		ptr[i++] = str[start++];
-	ptr[i] = 0;
-	return (ptr);
+		dup[i++] = str[start++];
+	dup[i] = '\0';
+	return (dup);
 }
 
 char	*ft_strdup(char *str)
@@ -36,12 +36,9 @@ char	*ft_strdup(char *str)
 	char	*ptr;
 	int		i;
 
-	i = 0;
 	if (!str)
 		return (NULL);
-	while (str[i])
-		i++;
-	ptr = (char *)malloc(sizeof(char) * (i + 1));
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!ptr)
 		return (NULL);
 	i = 0;
@@ -50,7 +47,7 @@ char	*ft_strdup(char *str)
 		ptr[i] = str[i];
 		i++;
 	}
-	ptr[i] = 0;
+	ptr[i] = '\0';
 	return (ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:52:08 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/29 11:58:14 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/29 12:56:56 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,49 +34,43 @@ static int	ft_handle_backup(char **backup, char **line)
 	return (0);
 }
 
+static int	ft_handle_buf_nl(char **line, char *buf)
+{
+	char	*tmp;
+
+	tmp = *line;
+	*line = ft_strjoin(*line, buf);
+	if (!(*line))
+		return (-1);
+	if (tmp != NULL)
+		free(tmp);
+	return (1);
+}
+
 static int	ft_handle_buf(char **backup, char *buf, char **line)
 {
 	int		posn;
-	char	*before;
+	char	*tmp;
 
 	if (ft_strchr(buf, '\n') != NULL)
 	{
 		posn = ft_strchr(buf, '\n') - buf;
-		before = ft_substr(buf, 0, posn + 1);
-		if (!before)
+		tmp = ft_substr(buf, 0, posn + 1);
+		if (!tmp)
 			return (-1);
-		*line = ft_strjoin(*line, before);
+		*line = ft_strjoin(*line, tmp);
 		if (!(*line))
 			return (-1);
 		free(*backup);
-		free(before);
+		*backup = NULL;
+		free(tmp);
 		*backup = ft_substr(buf, posn + 1, ft_strlen(buf) - posn);
 		if (!(*backup))
 			return (-1);
 		return (0);
 	}
-	printf("buf: %s\n", buf);
-	printf("line: %s\n", *line);
-	*line = ft_strjoin(*line, buf);
-	if (!(*line))
-		return (-1);
-	return (1);
+	return (ft_handle_buf_nl(line, buf));
 }
-
-// static void	ft_n_in_backup(char **backup, char **line)
-// {
-// 	int posn;
-// 	int rest;
-
-// 	posn = ft_strchr(*backup, '\n') - *backup;
-// 	*line = ft_substr(*backup, 0, posn + 1);
-// 	if (!(*line))
-// 		return ;
-// 	rest = ft_strlen(*backup) - posn;
-// 	*backup = ft_substr(*backup, posn + 1, rest);
-// 	if (!(*backup))
-// 		return ;
-// }
 
 char	*get_next_line(int fd)
 {
@@ -86,6 +80,7 @@ char	*get_next_line(int fd)
 	int			b;
 
 	line = NULL;
+	printf("backup: %s\n", backup);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!backup)
@@ -94,6 +89,7 @@ char	*get_next_line(int fd)
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
+	buf[BUFFER_SIZE] = '\0';
 	while (1)
 	{
 		b = read(fd, buf, BUFFER_SIZE);
@@ -101,6 +97,8 @@ char	*get_next_line(int fd)
 		if (b <= 0 || ft_handle_buf(&backup, buf, &line) <= 0)
 			break ;
 	}
+	if (b <= 0 && backup != NULL)
+		free(backup);
 	free(buf);
 	return (line);
 }
@@ -123,6 +121,7 @@ int	main(void)
 		free(line);
 		i++;
 	}
+	
 	close(fd);
 	return (0);
 	// gcc -Wall -Werror -Wextra *.c -g3 -D BUFFER_SIZE=5

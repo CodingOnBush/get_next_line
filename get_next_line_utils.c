@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:56:42 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/29 12:00:14 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/29 12:39:44 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(char *str, int start, int len)
 	i = 0;
 	if (!str)
 		return (NULL);
-	if (start > ft_strlen(str))
+	if (start >= ft_strlen(str))
 		return (NULL);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dup)
@@ -53,28 +53,28 @@ char	*ft_strdup(char *str)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*ptr;
+	char	*out;
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!ptr)
+	out = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!out)
 		return (NULL);
+	i = 0;
 	while (s1[i])
 	{
-		ptr[i] = s1[i];
+		out[i] = s1[i];
 		i++;
 	}
+	j = 0;
 	while (s2[j])
-		ptr[i++] = s2[j++];
-	ptr[i] = 0;
-	return (ptr);
+		out[i++] = s2[j++];
+	out[i] = 0;
+	return (out);
 }
 
 int	ft_strlen(char *s)

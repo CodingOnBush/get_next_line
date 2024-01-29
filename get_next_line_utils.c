@@ -6,98 +6,90 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:56:42 by momrane           #+#    #+#             */
-/*   Updated: 2023/12/04 08:19:30 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/29 11:12:54 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_get_after_nl(char *str)
+char	*ft_substr(char *str, int start, int len)
 {
-	char	*pos;
-	char	*out;
-	int		len;
+	char	*ptr;
 	int		i;
 
+	i = 0;
 	if (!str)
 		return (NULL);
-	pos = ft_strchr(str, '\n');
-	if (!pos || *(pos + 1) == '\0')
+	if (start > ft_strlen(str))
+		return (ft_strdup(""));
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
 		return (NULL);
-	len = 0;
-	while (*(pos + 1 + len) != '\0')
-		len++;
-	out = (char *)malloc((len + 1) * sizeof(char));
-	if (!out)
+	while (i < len && str[start])
+		ptr[i++] = str[start++];
+	ptr[i] = 0;
+	return (ptr);
+}
+
+char	*ft_strdup(char *str)
+{
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i])
+		i++;
+	ptr = (char *)malloc(sizeof(char) * (i + 1));
+	if (!ptr)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (str[i])
 	{
-		out[i] = *(pos + 1 + i);
+		ptr[i] = str[i];
 		i++;
 	}
-	out[i] = '\0';
-	return (out);
+	ptr[i] = 0;
+	return (ptr);
 }
 
-int	ft_get_len(t_node *lst)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	t_node	*curr;
-	char	*str;
-	int		len;
+	char	*ptr;
+	int		i;
+	int		j;
 
-	curr = lst;
-	len = 0;
-	while (curr)
+	i = 0;
+	j = 0;
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!ptr)
+		return (NULL);
+	while (s1[i])
 	{
-		str = curr->str;
-		while (*str != '\n' && *str)
-		{
-			len++;
-			str++;
-		}
-		if (*str == '\n')
-			return (len + 1);
-		curr = curr->next;
+		ptr[i] = s1[i];
+		i++;
 	}
-	return (len);
+	while (s2[j])
+		ptr[i++] = s2[j++];
+	ptr[i] = 0;
+	return (ptr);
 }
 
-void	ft_lstappend(t_node **lst, char *buff)
+int	ft_strlen(char *s)
 {
-	t_node	*new;
-	t_node	*curr;
+	int		i;
 
-	new = (t_node *)malloc(sizeof(t_node));
-	if (!new)
-		return ;
-	new->str = buff;
-	new->next = NULL;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	curr = *lst;
-	while (curr->next != NULL)
-		curr = curr->next;
-	curr->next = new;
-}
-
-int	ft_lstchr(t_node *lst)
-{
-	t_node	*curr;
-	char	*str;
-
-	curr = lst;
-	while (curr)
-	{
-		str = curr->str;
-		if (ft_strchr(str, '\n') != NULL)
-			return (1);
-		curr = curr->next;
-	}
-	return (0);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
 
 char	*ft_strchr(char *s, char c)

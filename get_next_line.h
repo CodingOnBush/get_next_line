@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:04:12 by momrane           #+#    #+#             */
-/*   Updated: 2023/12/04 08:10:42 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:34:59 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,16 @@
 #  define BUFFER_SIZE 5
 # endif
 
-# include <unistd.h>
-# include <stdlib.h>
 # include <fcntl.h>
-
-typedef struct s_node
-{
-	char			*str;
-	struct s_node	*next;
-}					t_node;
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
-int		ft_createlst(int fd, t_node **lst);
-void	ft_lstappend(t_node **lst, char *buff);
-void	ft_update_lst(t_node **lst);
-void	*ft_freelst(t_node **lst);
-char	*ft_create_str(t_node *lst);
-char	*ft_get_after_nl(char *str);
 char	*ft_strchr(char *s, char c);
-int		ft_get_len(t_node *lst);
-int		ft_lstchr(t_node *lst);
+int		ft_strlen(char *s);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(char *str);
+char	*ft_substr(char *str, int start, int len);
 
 #endif

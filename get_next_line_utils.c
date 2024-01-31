@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:56:42 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/29 14:00:17 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:40:13 by allblue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (s1 == NULL)
 		return (ft_strdup(s2));
+	if (s2 == NULL)
+		return (s1);
 	out = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!out)
 		return (NULL);

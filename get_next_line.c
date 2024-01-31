@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:52:08 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/30 17:49:42 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/30 20:53:35 by allblue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static int	ft_handle_buf(char **backup, char *buf, char **line)
 	char	*tmp;
 
 	if (buf[0] == '\0')
+	{
+		free(*backup);
+		*backup = NULL;
 		return (0);
+	}
 	if (ft_strchr(buf, '\n') != NULL)
 	{
 		posn = ft_strchr(buf, '\n') - buf;
@@ -65,11 +69,6 @@ char	*get_next_line(int fd)
 		buffer[bytes_read] = '\0';
 		if (ft_handle_buf(&backup, buffer, &line) <= 0)
 			break ;
-	}
-	if (bytes_read <= 0 && backup != NULL)
-	{
-		free(backup);
-		backup = NULL;
 	}
 	free(buffer);
 	return (line);

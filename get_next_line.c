@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: allblue <allblue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:52:08 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/31 11:28:39 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/31 16:19:41 by allblue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_next_line(int fd)
 	static char	buf[BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes;
+	int			i;
 
 	line = ft_strdup(buf);
 	while (1)
@@ -29,16 +30,22 @@ char	*get_next_line(int fd)
 		buf[bytes] = '\0';
 		line = ft_strjoin(line, buf, bytes);
 	}
-	if (ft_strlen(line) == 0)
-		return (free(line), NULL);
+	i = 0;
+	while (line[i])
+		i++;
+	if (i == 0)
+	{
+		free(line);
+		return (NULL);
+	}
 	if (ft_strchr(line, '\n') != NULL)
+	{
 		ft_strlcpy(buf, ft_strchr(line, '\n') + 1, BUFFER_SIZE + 1);
+		i = ft_strchr(line, '\n') - line + 1;
+	}
 	else
 		ft_strlcpy(buf, "", BUFFER_SIZE + 1);
-	if (ft_strchr(line, '\n') != NULL)
-		line[ft_strchr(line, '\n') - line + 1] = '\0';
-	else
-		line[ft_strlen(line)] = '\0';
+	line[i] = '\0';
 	return (line);
 }
 

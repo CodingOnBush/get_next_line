@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:52:08 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/31 11:24:12 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/31 11:28:39 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE + 1];
 	char		*line;
-	int			bytes_read;
+	int			bytes;
 
 	line = ft_strdup(buf);
 	while (1)
 	{
 		if (ft_strchr(line, '\n') != NULL)
 			break ;
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read <= 0)
+		bytes = read(fd, buf, BUFFER_SIZE);
+		if (bytes <= 0)
 			break ;
-		buf[bytes_read] = '\0';
-		line = ft_strjoin(line, buf, bytes_read);
+		buf[bytes] = '\0';
+		line = ft_strjoin(line, buf, bytes);
 	}
 	if (ft_strlen(line) == 0)
 		return (free(line), NULL);

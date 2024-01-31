@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:56:42 by momrane           #+#    #+#             */
-/*   Updated: 2024/01/31 11:10:39 by momrane          ###   ########.fr       */
+/*   Updated: 2024/01/31 11:43:46 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	size_t	srcsize;
 	size_t	i;
 
-	srcsize = ft_strlen(src);
+	if (!src)
+		return (0);
+	srcsize = 0;
+	while (src[srcsize])
+		srcsize++;
 	i = 0;
 	if (dstsize > 0)
 	{
@@ -57,11 +61,15 @@ char	*ft_strdup(const char *src)
 	char	*dst;
 	size_t	len;
 
-	len = ft_strlen(src) + 1;
-	dst = malloc(len);
+	if (!src)
+		return (NULL);
+	len = 0;
+	while (src[len])
+		len++;
+	dst = malloc(len + 1);
 	if (dst == NULL)
 		return (NULL);
-	ft_strlcpy(dst, src, len);
+	ft_strlcpy(dst, src, len + 1);
 	return (dst);
 }
 

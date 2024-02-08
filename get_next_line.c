@@ -6,7 +6,7 @@
 /*   By: momrane <momrane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 07:52:08 by momrane           #+#    #+#             */
-/*   Updated: 2024/02/01 20:51:51 by momrane          ###   ########.fr       */
+/*   Updated: 2024/02/08 11:22:24 by momrane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ char	*get_next_line(int fd)
 		line[ft_strchr(line, '\n') - line + 1] = '\0';
 	}
 	else
-	{
 		buf[0] = '\0';
-		line[ft_strlen(line)] = '\0';
-	}
 	return (line);
 }
 
+// #include <stdio.h>
 // int	main(void)
 // {
 // 	int		fd;
